@@ -23,9 +23,9 @@ int main(void) {
   string site = "http://msu.kz";
   regex rgx("http[s]?://[\\w\\.\\?\\$\\-\\+#/%=]+");
   if (curl) {
-      for (int i = 0; i < 1; i++) {
+      for (int i = 0; i < 3; i++) {
           for (int j = 0; j < len; j++) {
-              if (i == 0)
+              if (i == 0 && j == 0)
                   curl_easy_setopt(curl, CURLOPT_URL, "http://msu.kz");
               else 
                   curl_easy_setopt(curl, CURLOPT_URL, tmp1[j].c_str());
@@ -36,18 +36,20 @@ int main(void) {
               if (res != CURLE_OK)
                   fprintf(stderr, "curl_easy_perform() failed: %s\n",
                   curl_easy_strerror(res));
+//              if (i != 0)
+//                  cout<<" ** " <<tmp1[j]<<endl;
               for (sregex_iterator it = sregex_iterator(info.begin(), info.end(), rgx); it != sregex_iterator(); it++) {
                   smatch match;
                   match = *it;
+//                  cout<<match.str(0)<<endl;
                   tmp.push_back(match.str(0));
                   list.push_back(match.str(0));
-//                cout<<match.str(0)<<endl;
               }
-//              len = tmp.size();
-//              tmp1 = tmp;
+              info.clear();
           }
           tmp1 = tmp;
           len = tmp1.size();
+          tmp.erase(tmp.begin(), tmp.end());
       }
   }
   curl_easy_cleanup(curl);

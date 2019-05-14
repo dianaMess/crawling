@@ -7,8 +7,8 @@
 #include<bits/stdc++.h>
 using namespace std;
 
-size_t write_callback(void *contents, size_t size, size_t nmemb, void *userp) {
-    ((std::string*)userp)->append((char*)contents, size * nmemb);
+size_t save_data(void *ptr, size_t size, size_t nmemb, void *userdata) {
+    ((std::string*)userdata)->append((char*)ptr, size * nmemb);
     return size * nmemb;
 }
 int main(void) {
@@ -30,7 +30,7 @@ int main(void) {
               else 
                   curl_easy_setopt(curl, CURLOPT_URL, tmp1[j].c_str());
 //    curl_easy_setopt(curl, CURLOPT_FOLLOWLOCATION, 1L);
-              curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, write_callback);
+              curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, save_data);
               curl_easy_setopt(curl, CURLOPT_WRITEDATA, &info); 
               res = curl_easy_perform(curl);
               if (res != CURLE_OK)

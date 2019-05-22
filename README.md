@@ -2,6 +2,7 @@
 ### How to compile:  
 make install  
 ### How to run:  
-./crowler  
+Example  
+./crawler http://msu.kz 
 ### Example  
 Example was kept in answer.txt file
